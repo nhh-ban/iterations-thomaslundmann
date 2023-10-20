@@ -1,4 +1,3 @@
-
 # This script contains a function for posting GraphQL-queries. 
 # 
 # In order to use the function you must have the following 

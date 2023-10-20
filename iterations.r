@@ -29,7 +29,7 @@ stations_metadata <-
   GQL(
     query=gql_metadata_qry,
     .url = configs$vegvesen_url
-    ) 
+    )
 
 
 #### 2: Transforming metadata
@@ -52,7 +52,8 @@ source("gql-queries/vol_qry.r")
 
 stations_metadata_df %>% 
   filter(latestData > Sys.Date() - days(7)) %>% 
-  sample_n(1) %$% 
+  sample_n(1) %$% {
+    name <- name
   vol_qry(
     id = id,
     from = to_iso8601(latestData, -4),
@@ -62,8 +63,9 @@ stations_metadata_df %>%
   transform_volumes() %>% 
   ggplot(aes(x=from, y=volume)) + 
   geom_line() + 
-  theme_classic()
-
-
+  theme_classic() +
+  labs(
+    title = name, x = "Time", y = "Volume")
+}
 
 
